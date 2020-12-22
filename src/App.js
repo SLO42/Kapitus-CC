@@ -123,7 +123,7 @@ class App extends React.Component {
           {/* <label for="symbol"></label> */}
           <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
           <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
-          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart key="ListStart"/> }
+          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart key="ListStarts"/> }
         </header>
       </div>
     );
