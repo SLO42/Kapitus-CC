@@ -25,6 +25,20 @@ class App extends React.Component {
     }
   }
 
+  _handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+		  this.onSubmit(e);
+    }
+  }
+
+  componentDidMount(){
+    document.addEventListener("keydown", this._handleKeyDown, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this._handleKeyDown, false);
+  }
+
   ListStart = () => {
     return (
     <ul key={"start"}>
@@ -68,13 +82,6 @@ class App extends React.Component {
     }
     else return <li key={this.state.data[item]}> {item} | {data} </li>
   }
-
-  _handleKeyDown = (e) => {
-		if (e.key === 'Enter') {
-		  this.onSubmit(e);
-    }
-  }
-
 
   onSubmit = () => {
     this.setState({loading: true});
