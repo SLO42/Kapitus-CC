@@ -45,7 +45,7 @@ class App extends React.Component {
     return (
     <ul key={"start"}>
       {Object.keys(this.state.data).map((key, index) => (
-        <this.ListItem item={key} data={this.state.data[key]} index={index} />
+        <this.ListItem key={index} item={key} data={this.state.data[key]}/>
       )
       )}
     </ul>
@@ -55,14 +55,14 @@ class App extends React.Component {
     if (item === "changes"){
       if (data > 0){
         return (
-          <li key={this.state.data[item]}>
+          <li key={item} id={item}>
             {item} | <span style={{color: "green"}}>{data}</span>
           </li> 
         )
       }
       else {
         return (
-          <li key={this.state.data[item]}>
+          <li key={item} id={item}>
             {item} | <span style={{color: "red"}}>{data}</span>
           </li> 
         )
@@ -70,19 +70,19 @@ class App extends React.Component {
     }
     else if (item === "price") {
       return (
-        <li key={this.state.data[item]}>
+        <li key={item} id={item}>
             {item} | ${data}
         </li>
        )
     }
     else if (item === "website") {
       return (
-        <li key={this.state.data[item]}>
+        <li key={item} id={item}>
            {item} | <a href={data} target={"_blank"} rel={"noreferrer"}>{data}</a>
         </li>
        )
     }
-    else return <li key={this.state.data[item]}> {item} | {data} </li>
+    else return <li key={item} id={item}> {item} | {data} </li>
   }
 
   onSubmit = () => {
@@ -123,7 +123,7 @@ class App extends React.Component {
           {/* <label for="symbol"></label> */}
           <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
           <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
-          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart/> }
+          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart key="propStart"/> }
         </header>
       </div>
     );
