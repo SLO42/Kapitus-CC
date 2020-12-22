@@ -86,17 +86,22 @@ class App extends React.Component {
   }
 
   onSubmit = () => {
-    this.setState({loading: true});
+    this.setState({loading: true, data: undefined});
     if (symbolArray.includes(this.state.symbol)){
       axios.get(`https://financialmodelingprep.com/api/v3/profile/${this.state.symbol}?apikey=${this.state.symbol === "AAPL" ? "demo" : apikey}`).then(res => {
-        const data = res.data[0];
-        this.setState({data: data, image: data.image}, () => {
-          this.setState({loading: false});
-        });
+        if (res.data.length === 0){
+          this.setState({error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
+        }    
+        else{
+          const data = res.data[0];
+          this.setState({data: data, image: data.image ? data.image : logo }, () => {
+            this.setState({loading: false});
+          });
+        }
       })
     }
     else{
-      this.setState({error: `"${this.state.symbol}" is not a Stock Symbol, Please enter a NASDAQ stock symbol`, loading: false})
+      this.setState({error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
     }
       
     // });
