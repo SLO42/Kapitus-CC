@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import _axios from 'axios';
 import './App.css';
+import symbolArray from './symbols.js'
 
 const axios = _axios.create({
   timeout: 10000
@@ -13,6 +14,7 @@ const INITAL_STATE = {
   data: undefined,
   loading: false,
   image: null,
+  error: undefined
 } 
 
 
@@ -85,13 +87,18 @@ class App extends React.Component {
 
   onSubmit = () => {
     this.setState({loading: true});
-    axios.get(`https://financialmodelingprep.com/api/v3/profile/${this.state.symbol}?apikey=${this.state.symbol === "AAPL" ? "demo" : apikey}`).then(res => {
-      const data = res.data[0];
-      this.setState({data: data, image: data.image}, () => {
-        this.setState({loading: false});
-      });
+    if (symbolArray.includes(this.state.symbol)){
+      axios.get(`https://financialmodelingprep.com/api/v3/profile/${this.state.symbol}?apikey=${this.state.symbol === "AAPL" ? "demo" : apikey}`).then(res => {
+        const data = res.data[0];
+        this.setState({data: data, image: data.image}, () => {
+          this.setState({loading: false});
+        });
+      })
+    }
+    else{
+      this.setState({error: `"${this.state.symbol}" is not a Stock Symbol, Please enter a NASDAQ stock symbol`, loading: false})
+    }
       
-    })
     // });
   }
 
@@ -103,14 +110,15 @@ class App extends React.Component {
   
 
   render() {
-    const {loading, symbol} = this.state;
+    const {loading, symbol, error} = this.state;
       return (
         <div className="App">
         <header className="App-header">
           <img src={ this.state.image || logo} className="App-logo" alt="logo" />
-            <input type="text" value={symbol} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
-            <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
-            {loading ? <p>loading...</p> : this.state.data === undefined ? <p></p> :  <this.ListStart/> }
+          {/* <label for="symbol"></label> */}
+          <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
+          <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
+          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart/> }
         </header>
       </div>
     );
