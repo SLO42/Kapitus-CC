@@ -69,6 +69,12 @@ class App extends React.Component {
     else return <li key={this.state.data[item]}> {item} | {data} </li>
   }
 
+  _handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+		  this.onSubmit(e);
+    }
+  }
+
 
   onSubmit = () => {
     this.setState({loading: true});
@@ -84,7 +90,9 @@ class App extends React.Component {
 
   onChange = event => {
 		this.setState({ [event.target.name]: event.target.value });
-	};
+  };
+  
+  
   
 
   render() {
