@@ -121,7 +121,7 @@ class App extends React.Component {
         <header className="App-header">
           <img src={ this.state.image || logo} className="App-logo" alt="logo" />
             {/* <label for="symbol"></label> */}
-          <div className="container" style={{display: "flex", flexDirection: "row-reverse"}}>
+          <div className="container">
             <div className="form">
               <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
               <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
