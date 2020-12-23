@@ -86,11 +86,12 @@ class App extends React.Component {
   }
 
   onSubmit = () => {
+    const symbol = this.state.symbol.toUpperCase();
     this.setState({loading: true, data: undefined});
-    if (symbolArray.includes(this.state.symbol)){
-      axios.get(`https://financialmodelingprep.com/api/v3/profile/${this.state.symbol}?apikey=${this.state.symbol === "AAPL" ? "demo" : apikey}`).then(res => {
+    if (symbolArray.includes(symbol)){
+      axios.get(`https://financialmodelingprep.com/api/v3/profile/${symbol}?apikey=${symbol === "AAPL" ? "demo" : apikey}`).then(res => {
         if (res.data.length === 0){
-          this.setState({image: logo, error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
+          this.setState({image: logo, error: `"${symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
         }    
         else{
           const data = res.data[0];
@@ -101,7 +102,7 @@ class App extends React.Component {
       })
     }
     else{
-      this.setState({image: logo, error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
+      this.setState({image: logo, error: `"${symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
     }
       
     // });
