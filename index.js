@@ -1,6 +1,5 @@
 function getStuff(){
     let symb = document.getElementById("symb").value.toUpperCase();
-    console.log(symb);
     if (symbolArray.includes(symb)){
         fetch(`https://financialmodelingprep.com/api/v3/profile/${symb}\?apikey\=${symb === "AAPL" ? "demo" : "04c66622b9940fc4a75bbcfa45703325" }`).then(body => body.json()).then(res => {
             if (res.length === 0){
