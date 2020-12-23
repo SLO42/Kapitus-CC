@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Kapitus-CC
+
+Coding challenge for Kapitus, Pulling and reading api data.
+
+Simple but important.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
