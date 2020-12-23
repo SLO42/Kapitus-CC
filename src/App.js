@@ -43,7 +43,7 @@ class App extends React.Component {
 
   ListStart = () => {
     return (
-    <ul key={"start"}>
+    <ul key={"start"} style={{listStyle: "none"}}>
       {Object.keys(this.state.data).map((key, index) => (
         <this.ListItem key={index} item={key} data={this.state.data[key]} />
       )
@@ -56,14 +56,14 @@ class App extends React.Component {
       if (data > 0){
         return (
           <li key={item} id={item}>
-            {item} | <span style={{color: "green"}}>{data}</span>
+            <strong>{item}</strong> | <span style={{color: "green"}}>{data}</span>
           </li> 
         )
       }
       else {
         return (
           <li key={item} id={item}>
-            {item} | <span style={{color: "red"}}>{data}</span>
+            <strong>{item}</strong> | <span style={{color: "red"}}>{data}</span>
           </li> 
         )
       }
@@ -71,18 +71,18 @@ class App extends React.Component {
     else if (item === "price") {
       return (
         <li key={item} id={item}>
-            {item} | ${data}
+            <strong>{item}</strong> | ${data}
         </li>
        )
     }
     else if (item === "website") {
       return (
         <li key={item} id={item}>
-           {item} | <a href={data} target={"_blank"} rel={"noreferrer"}>{data}</a>
+           <strong>{item}</strong> | <a href={data} target={"_blank"} rel={"noreferrer"}>{data}</a>
         </li>
        )
     }
-    else return <li key={item} id={item}> {item} | {data} </li>
+    else return <li key={item} id={item}> <strong>{item}</strong> | {data} </li>
   }
 
   onSubmit = () => {
@@ -90,7 +90,7 @@ class App extends React.Component {
     if (symbolArray.includes(this.state.symbol)){
       axios.get(`https://financialmodelingprep.com/api/v3/profile/${this.state.symbol}?apikey=${this.state.symbol === "AAPL" ? "demo" : apikey}`).then(res => {
         if (res.data.length === 0){
-          this.setState({error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
+          this.setState({image: logo, error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
         }    
         else{
           const data = res.data[0];
@@ -101,7 +101,7 @@ class App extends React.Component {
       })
     }
     else{
-      this.setState({error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
+      this.setState({image: logo, error: `"${this.state.symbol}" is not a Stock Symbol found in this API, Please enter a new stock symbol... For example: "${symbolArray[Math.floor(Math.random() * 7000)]}"`, loading: false})
     }
       
     // });
@@ -120,10 +120,16 @@ class App extends React.Component {
         <div className="App">
         <header className="App-header">
           <img src={ this.state.image || logo} className="App-logo" alt="logo" />
-          {/* <label for="symbol"></label> */}
-          <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
-          <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
-          {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart key="ListStarts"/> }
+            {/* <label for="symbol"></label> */}
+          <div className="container" style={{display: "flex", flexDirection: "row-reverse"}}>
+            <div className="form">
+              <input type="text" value={symbol} placeholder={"Stock Symbol like AAPL"} name={"symbol"} id={"symbol"} onChange={this.onChange}></input>
+              <input type="button" onClick={this.onSubmit} value={"Submit"}></input>
+            </div>
+            <div className="data">
+              {loading ? <p>loading...</p> : this.state.data === undefined ? error ? <p>{error}</p> :  <p></p> :  <this.ListStart key="ListStarts"/> }
+            </div>
+          </div>
         </header>
       </div>
     );
