@@ -4,6 +4,8 @@ Coding challenge for Kapitus, Pulling and reading api data.
 
 Hosted on heroku https://kapitus-cc.herokuapp.com/
 
+simple version Hosted on heroku https://kapitus-cc-simple.herokuapp.com/
+
 Simple but important.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
