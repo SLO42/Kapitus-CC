@@ -2,9 +2,9 @@
 
 Coding challenge for Kapitus, Pulling and reading api data.
 
-Hosted on heroku https://kapitus-cc.herokuapp.com/
+Hosted on heroku <a herf="https://kapitus-cc.herokuapp.com/" target="_blank"> kapitus-cc herokuapp </a>
 
-simple version Hosted on heroku https://kapitus-cc-simple.herokuapp.com/
+simple version Hosted on heroku <a herf="https://kapitus-cc-simple.herokuapp.com/" target="_blank"> kapitus-cc-simple herokuapp </a>
 
 Simple but important.
 
